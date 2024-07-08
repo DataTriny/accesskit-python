@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - 'accesskit_python-v*'
+      - '*.*'
 
 name: Publish Python bindings
 
