@@ -29,3 +29,8 @@ accesskit_macos = { version = "0.17.0" }
 
 [target.'cfg(any(target_os = "linux", target_os = "dragonfly", target_os = "freebsd", target_os = "openbsd", target_os = "netbsd"))'.dependencies]
 accesskit_unix = { version = "0.12.0" }
+
+[profile.release]
+lto = true
+opt-level = "z"
+codegen-units = 1
