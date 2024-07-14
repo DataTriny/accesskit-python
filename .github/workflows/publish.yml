@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - 'accesskit_python-v*'
+      - '*.*'
 
 name: Publish Python bindings
 
@@ -16,7 +16,7 @@ jobs:
       matrix:
         target: [universal2-apple-darwin]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.MIN_PYTHON_VERSION }}
@@ -31,7 +31,7 @@ jobs:
           pip install accesskit --no-index --find-links dist --force-reinstall
           python -c "import accesskit"
       - name: Upload wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -43,7 +43,7 @@ jobs:
       matrix:
         target: [x86_64, x86, aarch64, armv7]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.MIN_PYTHON_VERSION }}
@@ -60,7 +60,7 @@ jobs:
           pip install accesskit --no-index --find-links dist --force-reinstall
           python -c "import accesskit"
       - name: Upload wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -72,7 +72,7 @@ jobs:
       matrix:
         target: [x64, x86]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.MIN_PYTHON_VERSION }}
@@ -88,7 +88,7 @@ jobs:
           pip install accesskit --no-index --find-links dist --force-reinstall
           python -c "import accesskit"
       - name: Upload wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -96,14 +96,14 @@ jobs:
   sdist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build sdist
         uses: PyO3/maturin-action@v1
         with:
           command: sdist
           args: --out dist
       - name: Upload sdist
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -117,10 +117,12 @@ jobs:
     needs: [macos-wheels, linux-wheels, windows-wheels, sdist]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: wheels
       - uses: PyO3/maturin-action@v1
+        env:
+          MATURIN_REPOSITORY: testpypi
         with:
           command: upload
           args: --non-interactive --skip-existing *
@@ -131,7 +133,7 @@ jobs:
     needs: [macos-wheels, linux-wheels, windows-wheels, sdist]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: wheels
           path: dist
