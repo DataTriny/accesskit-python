@@ -123,7 +123,7 @@ jobs:
       - uses: PyO3/maturin-action@v1
         with:
           command: upload
-          args: --non-interactive --skip-existing *
+          args: --repository testpypi --non-interactive --skip-existing *
 
   github-release:
     name: Add to GitHub release
