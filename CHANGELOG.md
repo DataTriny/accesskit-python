@@ -54,6 +54,13 @@
   * dependencies
     * accesskit_unix bumped from 0.11.0 to 0.11.1
 
+## [0.7.0](https://github.com/DataTriny/accesskit-python/compare/v0.6.0...0.7.0) (2024-07-14)
+
+
+### Features
+
+* Move the Python bindings into a standalone repository ([79e2fc3](https://github.com/DataTriny/accesskit-python/commit/79e2fc3a53c0dc92d5a31a85586edb5b257f3868))
+
 ## [0.6.0](https://github.com/DataTriny/accesskit-python/compare/v0.5.0...0.6.0) (2024-07-14)
 
 
